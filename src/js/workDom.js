@@ -1,6 +1,5 @@
 import debounce from 'lodash.debounce';
-import '@pnotify/core/dist/BrightTheme.css';
-import { alert } from '@pnotify/core';
+import { notice } from './pnotify';
 import notMoreTen from '../templates/notMoreTen.hbs';
 import onlyOne from '../templates/onlyOne.hbs';
 
@@ -17,15 +16,18 @@ function fetchCountries(searchQuery) {
   return fetch(`https://restcountries.eu/rest/v2/name/${searchQuery}`)
     .then(res => res.json())
     .then(data => {
-      if ((data.length > 1) & (data.length < 10)) {
+      if ((data.length > 1) & (data.length <= 10)) {
         const allLi = data.map(item => notMoreTen(item)).join('');
-        country_list.insertAdjacentHTML('beforeend', allLi);
+        country_list.innerHTML = allLi;
       }
       if (data.length === 1) {
         const result = data.map(item => onlyOne(item)).join('');
-        country_list.insertAdjacentHTML('beforeend', result);
+        country_list.innerHTML = result;
       }
-      console.log(data);
-    });
-  // .catch(err => err(pnotify));
+      if (data.length > 10) {
+        country_list.innerHTML = '';
+        notice();
+      }
+    })
+    .catch(err => console.warn(err));
 }

@@ -18,6 +18,8 @@ body {
    */
   background-image: url('../images/bg-pattern.png');
 }
+
+/* ======input========== */
 .search {
   text-align: center;
   font-family: 'Orbitron', sans-serif;
@@ -31,4 +33,14 @@ body {
   border-radius: 8px;
   box-shadow: 4px 4px #cecece;
   outline-color: yellowgreen;
+}
+/* =======one_country======== */
+.countryName {
+  text-align: center;
+  font-family: 'Monoton', cursive;
+  color: red;
+}
+.countryFlag {
+  position: absolute;
+  margin-left: 300px;
 }
